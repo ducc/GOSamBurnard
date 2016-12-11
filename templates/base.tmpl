@@ -2,18 +2,53 @@
 <head>
     <title>Sam Burnard | {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/bulma.min.css" />
-    <link rel="stylesheet" href="/static/css/base.css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/unslider.css">
+    <link rel="stylesheet" href="/static/css/unslider-dots.css">
 </head>
+<style>
+    body {
+        /*background-image: url("https://cdn.petcarerx.com/LPPE/images/articlethumbs/Are-You-Ready-For-A-Really-Big-Dog-Large.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;*/
+    }
+</style>
 <body>
-Here is ur navbar
+<section style="margin-top: -15px;">
+    <nav class="nav" style="text-transform: uppercase;">
+        <div class="container">
+            <span class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <div class="nav-center nav-menu">
+                <a class="nav-item" style="font-size: 30px; margin-top: 30px; margin-right: -20px;" href="/">
+                    Home
+                </a>
+                <a class="nav-item" style="font-size: 30px; margin-top: 15px; margin-right: -20px;" href="/portfolio">
+                    Portfolio
+                </a>
+                <a class="nav-item" style="font-size: 50px;" href="#">
+                    Sam Burnard
+                </a>
+                <a class="nav-item" style="font-size: 30px; margin-top: 15px; margin-left: -20px;" href="/projects">
+                    Projects
+                </a>
+                <a class="nav-item" style="font-size: 30px; margin-top: 30px; margin-left: -20px;" href="/about">
+                    About
+                </a>
+            </div>
+        </div>
+    </nav>
+</section>
 <section class="container">
     {% block content %}{% endblock %}
 </section>
-<section class="container" style="padding: 50px 0 50px 0;">
-</section>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/static/js/base.js"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

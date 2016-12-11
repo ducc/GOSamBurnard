@@ -1,5 +1,69 @@
 {% extends "base.tmpl" %}
 {% block title %}Illustration and Design{% endblock %}
 {% block content %}
-    Hello this is my content!
+<br />
+
+<div class="my-slider" style="margin-left: 40px; margin-right: 40px;">
+    <ul>
+        <li>
+            <img src="http://placehold.it/600x400" style="width: 100%" />
+        </li>
+        <li>
+            <img src="http://placehold.it/600x400" style="width: 100%" />
+        </li>
+        <li>
+            <img src="http://placehold.it/600x400" style="width: 100%" />
+        </li>
+    </ul>
+</div>
+
+<br />
+<br />
+<center>
+    <div class="button is-outlined is-large" style="font-size: 40px; padding: 30px;">
+        WELCOME
+    </div>
+</center>
+<br />
+<br />
+<div class="columns">
+    <div class="column is-9">
+        <div class="columns">
+            <div class="column is-6">
+                <div style="background-color: black; height: 350px;"></div>
+            </div>
+            <div class="column is-6">
+                <div style="background-color: black; height: 350px;"></div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-6">
+                <div style="background-color: black; height: 350px;"></div>
+            </div>
+            <div class="column is-6">
+                <div style="background-color: black; height: 350px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div style="background-color: red; height: 600px;"></div>
+    </div>
+</div>
+<br />
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/unslider-min.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $('.my-slider').unslider({
+            autoplay: true,
+            arrows: {
+                prev: '<a class="unslider-arrow prev"><i class="fa fa-arrow-left"></i></a>',
+                next: '<a class="unslider-arrow next"><i class="fa fa-arrow-right"></i></a>'
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -34,9 +34,8 @@ func main() {
     m.Use(pongo2.Pongoers(pongo2.Options{
         Directory: conf.Templates.Directory,
     }, "base:templates"))
-    m.Get("/", func(ctx *macaron.Context) {
-        ctx.HTMLSet(200, "base", "index")
-    })
+    m.Get("/", home)
+    m.Get("/portfolio", portfolio)
     err = http.ListenAndServe(conf.Http.Port, m)
     if err != nil {
         log.Fatal(err)

@@ -17,3 +17,12 @@ func loadConfig(path string) (*config, error) {
     }
     return &conf, nil
 }
+
+func toJSONString(input interface{}) (*string, error) {
+    body, err := json.Marshal(&input)
+    if err != nil {
+        return nil, err
+    }
+    temp := string(body)
+    return &temp, nil
+}
