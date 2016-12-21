@@ -35,7 +35,10 @@ func main() {
         Directory: conf.Templates.Directory,
     }, "base:templates"))
     m.Get("/", home)
-    m.Get("/portfolio", portfolio)
+	m.Get("/portfolio", portfolio)
+	m.Get("/login", login)
+	m.Post("/logout", logout)
+	m.Get("/admin", admin)
     err = http.ListenAndServe(conf.Http.Port, m)
     if err != nil {
         log.Fatal(err)
