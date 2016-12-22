@@ -1,11 +1,11 @@
-package main
+package pages
 
 import "gopkg.in/macaron.v1"
 
-func login(ctx *macaron.Context) {
+func Login(ctx *macaron.Context) {
 	ctx.HTMLSet(200, "base", "login")
 }
 
-func logout(ctx *macaron.Context) {
+func Logout(ctx *macaron.Context) {
 	//ctx.HTMLSet(200, "base", "login")
 }

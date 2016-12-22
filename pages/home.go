@@ -1,7 +1,7 @@
-package main
+package pages
 
 import "gopkg.in/macaron.v1"
 
-func home(ctx *macaron.Context) {
+func Home(ctx *macaron.Context) {
     ctx.HTMLSet(200, "base", "index")
 }

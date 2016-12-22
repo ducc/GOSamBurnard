@@ -1,10 +1,17 @@
-package main
+package pages
 
 import (
     "gopkg.in/macaron.v1"
 )
 
-func portfolio(ctx *macaron.Context) {
+type portfolioItem struct {
+	id          uint
+	image       string
+	title       string
+	description string
+}
+
+func Portfolio(ctx *macaron.Context) {
     images := make([]portfolioItem, 0)
     images = append(images, portfolioItem{
         id: 1,

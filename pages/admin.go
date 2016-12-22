@@ -1,7 +1,7 @@
-package main
+package pages
 
 import "gopkg.in/macaron.v1"
 
-func admin(ctx *macaron.Context) {
+func Admin(ctx *macaron.Context) {
     ctx.HTMLSet(200, "base", "admin")
 }
