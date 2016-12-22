@@ -1,54 +1,54 @@
 package main
 
 import (
-    "log"
-    "gopkg.in/macaron.v1"
-    "github.com/go-macaron/pongo2"
-    "net/http"
-    "database/sql"
-	"github.com/sponges/GOSamBurnard/pages"
-	"io/ioutil"
+	"database/sql"
 	"encoding/json"
 	"github.com/gchaincl/dotsql"
+	"github.com/go-macaron/pongo2"
+	"github.com/sponges/GOSamBurnard/pages"
+	"gopkg.in/macaron.v1"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
 const config_path = "config.json"
 
 type config struct {
 	Database struct {
-				 Host     string `json:"host"`
-				 Database string `json:"database"`
-				 Username string `json:"username"`
-				 Password string `json:"password"`
-				 Ssl      bool   `json:"ssl"`
-			 } `json:"database"`
+		Host     string `json:"host"`
+		Database string `json:"database"`
+		Username string `json:"username"`
+		Password string `json:"password"`
+		Ssl      bool   `json:"ssl"`
+	} `json:"database"`
 
 	Http struct {
-				 Port string `json:"port"`
-			 } `json:"http"`
+		Port string `json:"port"`
+	} `json:"http"`
 
 	Templates struct {
-				 Directory string `json:"directory"`
-			 } `json:"templates"`
+		Directory string `json:"directory"`
+	} `json:"templates"`
 }
 
 var (
-    conf *config
-    db *sql.DB
+	conf *config
+	db   *sql.DB
 )
 
 func main() {
-    var err error
-    conf, err = loadConfig(config_path)
-    if err != nil {
-        log.Fatal(err)
-        return
-    }
-    db, err = openDatabase()
-    if err != nil {
-        log.Fatal(err)
-        return
-    }
+	var err error
+	conf, err = loadConfig(config_path)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	db, err = openDatabase()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	dot, err := dotsql.LoadFromFile("statements.sql")
 	if err != nil {
 		log.Fatal(err)
@@ -59,22 +59,22 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-    m := macaron.Classic()
-    m.Use(macaron.Static("static", macaron.StaticOptions{
-        Prefix: "static",
-    }))
-    m.Use(pongo2.Pongoers(pongo2.Options{
-        Directory: conf.Templates.Directory,
-    }, "base:templates"))
-    m.Get("/", pages.Home)
+	m := macaron.Classic()
+	m.Use(macaron.Static("static", macaron.StaticOptions{
+		Prefix: "static",
+	}))
+	m.Use(pongo2.Pongoers(pongo2.Options{
+		Directory: conf.Templates.Directory,
+	}, "base:templates"))
+	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
-    err = http.ListenAndServe(conf.Http.Port, m)
-    if err != nil {
-        log.Fatal(err)
-    }
+	err = http.ListenAndServe(conf.Http.Port, m)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func loadConfig(path string) (*config, error) {
