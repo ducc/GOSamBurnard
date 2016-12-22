@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS project_images (
   project_id SERIAL8 NOT NULL,
   text TEXT NOT NULL,
   image BYTEA NOT NULL,
-  index SMALLINT NOT NULL
+  index SMALLINT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 CREATE TABLE IF NOT EXISTS home_images (
   id SERIAL8 NOT NULL PRIMARY KEY,
@@ -23,7 +24,8 @@ CREATE TABLE IF NOT EXISTS portfolio_images (
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   index SMALLINT NOT NULL,
-  project_id SERIAL8 NOT NULL
+  project_id SERIAL8 NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 CREATE TABLE IF NOT EXISTS information (
   about TEXT NOT NULL,
@@ -33,6 +35,11 @@ CREATE TABLE IF NOT EXISTS social_accounts (
   id VARCHAR(255) NOT NULL,
   icon VARCHAR(63) NOT NULL,
   link VARCHAR(255) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS session (
+  key CHAR(16) NOT NULL PRIMARY KEY,
+  data BYTEA,
+  expiry INTEGER NOT NULL
 );
 
 --name: insert-project

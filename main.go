@@ -3,8 +3,11 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"github.com/gchaincl/dotsql"
 	"github.com/go-macaron/pongo2"
+	"github.com/go-macaron/session"
+	_ "github.com/go-macaron/session/postgres"
 	"github.com/sponges/GOSamBurnard/pages"
 	"gopkg.in/macaron.v1"
 	"io/ioutil"
@@ -12,11 +15,15 @@ import (
 	"net/http"
 )
 
-const config_path = "config.json"
+const (
+	config_path             = "config.json"
+	session_provider_format = "user=%s password=%s host=%s port=%s dbname=%s sslmode=%s"
+)
 
 type config struct {
 	Database struct {
 		Host     string `json:"host"`
+		Port     string `json:"port"`
 		Database string `json:"database"`
 		Username string `json:"username"`
 		Password string `json:"password"`
@@ -61,6 +68,11 @@ func main() {
 		return
 	}
 	m := macaron.Classic()
+	m.Use(session.Sessioner(session.Options{
+		Provider: database_driver_name,
+		ProviderConfig: fmt.Sprintf(session_provider_format, conf.Database.Username, conf.Database.Password,
+			conf.Database.Host, conf.Database.Port, conf.Database.Database, sslModeString()),
+	}))
 	m.Use(macaron.Static("static", macaron.StaticOptions{
 		Prefix: "static",
 	}))
