@@ -35,6 +35,7 @@ type config struct {
 var (
 	conf *config
 	db   *sql.DB
+	dot  *dotsql.DotSql
 )
 
 func main() {
@@ -49,7 +50,7 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-	dot, err := dotsql.LoadFromFile("statements.sql")
+	dot, err = dotsql.LoadFromFile("statements.sql")
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -71,6 +72,7 @@ func main() {
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
+	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {
 		log.Fatal(err)
