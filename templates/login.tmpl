@@ -1,12 +1,24 @@
 #{% extends "base.tmpl" %}
-{% block title %}Admin{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content %}
 <br />
-
-<form action="#" method="post">
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <button type="submit">Login</button>
-</form>
-
+<div class="columns">
+    <div class="column is-6-desktop is-offset-3-desktop is-12-mobile">
+        <div class="box">
+            <form action="#" method="post">
+                <p class="control">
+                    <label class="label">Username</label>
+                    <input class="input" type="text" name="username">
+                </p>
+                <p class="control">
+                    <label class="label">Password</label>
+                    <input class="input" type="password" name="password">
+                </p>
+                <p class="control">
+                    <button class="button" type="submit">Login</button>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

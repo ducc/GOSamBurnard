@@ -81,6 +81,7 @@ func main() {
 	}, "base:templates"))
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
+	m.Get("/about", pages.About)
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)

@@ -1,15 +1,53 @@
-#{% extends "base.tmpl" %}
+{% extends "base.tmpl" %}
 {% block title %}Admin{% endblock %}
 {% block content %}
 <br />
-
 <div class="columns">
-    <div class="column is-3">
-
+    <div class="column is-2">
+        <nav class="panel admin-menu">
+            <a class="admin-button panel-block" data-toggle="#homepage-section">
+                Homepage
+            </a>
+            <a class="admin-button panel-block" data-toggle="#portfolio-section">
+                Portfolio
+            </a>
+            <a class="admin-button panel-block" data-toggle="#projects-section">
+                Projects
+            </a>
+            <a class="admin-button panel-block" data-toggle="#information-section">
+                Information
+            </a>
+            <a class="admin-button panel-block" data-toggle="#social-accounts-section">
+                Social accounts
+            </a>
+        </nav>
     </div>
-    <div class="column is-9">
-
+    <div class="column is-10">
+        <div id="homepage-section" class="box admin-section active-section">
+            <h3 class="title">
+                Homepage
+            </h3>
+        </div>
+        <div id="portfolio-section" class="box admin-section" style="display: none">
+            <h3 class="title">
+                Portfolio
+            </h3>
+        </div>
+        <div id="projects-section" class="box admin-section" style="display: none">
+            <h3 class="title">
+                Projects
+            </h3>
+        </div>
+        <div id="information-section" class="box admin-section" style="display: none">
+            <h3 class="title">
+                Information
+            </h3>
+        </div>
+        <div id="social-accounts-section" class="box admin-section" style="display: none">
+            <h3 class="title">
+                Social accounts
+            </h3>
+        </div>
     </div>
 </div>
-
 {% endblock %}

@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "Bernard-mt-condensed";
+    src: url("/static/fonts/bernard-mt.ttf") format("truetype");
+}
+
+body {
+    /*background-image: url("https://cdn.petcarerx.com/LPPE/images/articlethumbs/Are-You-Ready-For-A-Really-Big-Dog-Large.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;*/
+}
+
+.uppercase {
+    text-transform: uppercase
+}
+
+.title-text {
+    font-family: "Bernard-mt-condensed", Arial, sans-serif;
+    text-transform: uppercase
+}
+
+.nav-container {
+    margin: -10px 0 0 0;
+}
+
+.top-nav-item {
+    font-size: 30px;
+}
+
+.top-nav-heading {
+    font-size: 50px;
+}
+
+.welcome {
+    font-size: 40px;
+    padding: 30px;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+}
+
+.modal-image-caption {
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    margin-top: -6px;
+}
+
+.admin-menu {
+    background-color: white;
+}
