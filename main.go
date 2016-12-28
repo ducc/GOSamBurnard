@@ -20,24 +20,26 @@ const (
 	session_provider_format = "user=%s password=%s host=%s port=%s dbname=%s sslmode=%s"
 )
 
-type config struct {
-	Database struct {
-		Host     string `json:"host"`
-		Port     string `json:"port"`
-		Database string `json:"database"`
-		Username string `json:"username"`
-		Password string `json:"password"`
-		Ssl      bool   `json:"ssl"`
-	} `json:"database"`
+type (
+	config struct {
+		Database struct {
+			Host     string `json:"host"`
+			Port     string `json:"port"`
+			Database string `json:"database"`
+			Username string `json:"username"`
+			Password string `json:"password"`
+			Ssl      bool   `json:"ssl"`
+		} `json:"database"`
 
-	Http struct {
-		Port string `json:"port"`
-	} `json:"http"`
+		Http struct {
+			Port string `json:"port"`
+		} `json:"http"`
 
-	Templates struct {
-		Directory string `json:"directory"`
-	} `json:"templates"`
-}
+		Templates struct {
+			Directory string `json:"directory"`
+		} `json:"templates"`
+	}
+)
 
 var (
 	conf *config
@@ -81,10 +83,13 @@ func main() {
 	}, "base:templates"))
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
+	m.Get("/projects", pages.Projects)
+	m.Get("/projects/:id", pages.Project)
 	m.Get("/about", pages.About)
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
+	m.Get("/test", pages.Test)
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {

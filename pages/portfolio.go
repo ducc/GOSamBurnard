@@ -12,7 +12,7 @@ type portfolioItem struct {
 }
 
 func Portfolio(ctx *macaron.Context) {
-	addStandardData(ctx.Data)
+	addStandardData(ctx.Data, "portfolio")
     images := make([]portfolioItem, 0)
     images = append(images, portfolioItem{
         id: 1,
