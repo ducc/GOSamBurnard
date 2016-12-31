@@ -39,6 +39,12 @@
     </nav>
 </section>
 <section class="container">
+    {% if (show_alert) %}
+        <div class="notification is-warning" style="margin-top: 40px;">
+            <button class="delete notification-hide"></button>
+            {{ alert }}
+        </div>
+    {% endif %}
     {% block content %}{% endblock %}
 </section>
 <br />

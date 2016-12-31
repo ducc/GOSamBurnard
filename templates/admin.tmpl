@@ -61,12 +61,12 @@
                                         </a>
                                     </div>
                                     <div class="column">
-                                        <a class="button is-warning" style="margin: 5px;">
+                                        <a class="button is-warning portfolio-edit-button" data-toggle="#portfolio-edit-{{ item.id }}" href="#portfolio-edit-{{ item.id }}" style="margin: 5px;">
                                             Edit
                                         </a>
                                     </div>
                                     <div class="column">
-                                        <a class="button is-danger" style="margin: 5px;">
+                                        <a class="button is-danger" href="/admin/portfolio/delete/{{ item.id }}" style="margin: 5px;">
                                             Delete
                                         </a>
                                     </div>
@@ -76,36 +76,42 @@
                     {% endfor %}
                 </table>
             </div>
-            <div class="box">
-                <h4 class="title">
-                    Edit image
-                </h4>
-                <p>
-                    Image ID: <code>1234PLACEHOLDER4321</code>
-                </p>
-                <br />
-                <form action="/admin/portfolio/edit" method="post" enctype="multipart/form-data">
-                    <p class="control">
-                        <label class="label">Image (choose file only if you want to change the image)</label>
-                        <input type="file" name="image">
+            {% for item in portfolio_images %}
+                <div class="box portfolio-edit-section" id="portfolio-edit-{{ item.id }}" style="display: none">
+                    <a class="is-pulled-right portfolio-edit-section-close">
+                        <i class="fa fa-close fa-2x"></i>
+                    </a>
+                    <h4 class="title">
+                        Edit image
+                    </h4>
+                    <p>
+                        Image ID: <code>{{ item.id }}</code>
                     </p>
-                    <p class="control">
-                        <label class="label">Title</label>
-                        <input class="input" type="text" name="title" value="my current title">
-                    </p>
-                    <p class="control">
-                        <label class="label">Description</label>
-                        <textarea class="textarea" name="description">my current description</textarea>
-                    </p>
-                    <p class="control">
-                        <label class="label">Project (not required)</label>
-                        <input class="input" type="text" name="project" value="my current project">
-                    </p>
-                    <p class="control">
-                        <button type="submit">Save</button>
-                    </p>
-                </form>
-            </div>
+                    <br />
+                    <form action="/admin/portfolio/edit" method="post" enctype="multipart/form-data">
+                        <input type="text" name="id" value="{{ item.id }}" style="display: none">
+                        <p class="control">
+                            <label class="label">Image (choose file only if you want to change the image)</label>
+                            <input type="file" name="image">
+                        </p>
+                        <p class="control">
+                            <label class="label">Title</label>
+                            <input class="input" type="text" name="title" value="{{ item.title }}">
+                        </p>
+                        <p class="control">
+                            <label class="label">Description</label>
+                            <textarea class="textarea" name="description">{{ item.description }}</textarea>
+                        </p>
+                        <p class="control">
+                            <label class="label">Project (not required)</label>
+                            <input class="input" type="text" name="project" value="{{ item.project }}">
+                        </p>
+                        <p class="control">
+                            <button type="submit">Save</button>
+                        </p>
+                    </form>
+                </div>
+            {% endfor %}
             <div class="box">
                 <h4 class="title">
                     Add image

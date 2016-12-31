@@ -27,4 +27,20 @@ $(document).ready(function() {
         });
         $(this).css("background-color", "#f5f5f5");
     });
+
+    $(".portfolio-edit-button").click(function() {
+        var editSectionId = $(this).attr("data-toggle");
+        $(".portfolio-edit-section").each(function() {
+            $(this).css("display", "none");
+        });
+        $(editSectionId).css("display", "");
+    });
+
+    $(".portfolio-edit-section-close").click(function() {
+        $(this).parent().css("display", "none");
+    });
+
+    $(".notification-hide").click(function() {
+        $(this).parent().remove();
+    });
 });

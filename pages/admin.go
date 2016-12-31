@@ -12,15 +12,6 @@ import (
 
 const image_file_path = "static/img/"
 
-type (
-	AdminPortfolioForm struct {
-		Image       *multipart.FileHeader `form:"image"`
-		Title       string                `form:"title"`
-		Description string                `form:"description"`
-		Project     int                   `form:"project"`
-	}
-)
-
 func Admin(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 	addStandardData(ctx.Data)
 	var err error
@@ -30,24 +21,6 @@ func Admin(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 		return
 	}
 	ctx.HTMLSet(200, "base", "admin")
-}
-
-func AdminPortfolioNew(ctx *macaron.Context, form AdminPortfolioForm, db *sql.DB, dot *dotsql.DotSql) {
-	name, err := saveImage(form.Image)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	var x interface{}
-	if form.Project != 0 {
-		x = form.Project
-	}
-	_, err = dot.Exec(db, "insert-portfolio-image", name, form.Title, form.Description, x)
-	if err != nil {
-		log.Fatalln(err)
-		return
-	}
-	ctx.Redirect("/admin")
 }
 
 func saveImage(header *multipart.FileHeader) (*string, error) {

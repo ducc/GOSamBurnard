@@ -85,7 +85,10 @@ SELECT * FROM portfolio_images;
 INSERT INTO portfolio_images (url, title, description, project_id) VALUES ($1, $2, $3, $4);
 
 --name: update-portfolio-image
-UPDATE portfolio_images SET url=$1, title=$2, description=$3, index=$4, project_id=$5 WHERE id=$6;
+UPDATE portfolio_images SET url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
+
+--name: update-portfolio-image-info
+UPDATE portfolio_images SET title=$1, description=$2, project_id=$3 WHERE id=$4;
 
 --name: delete-portfolio-image
 DELETE FROM portfolio_images WHERE id=$1;

@@ -81,6 +81,12 @@ func main() {
 	m.Use(pongo2.Pongoers(pongo2.Options{
 		Directory: conf.Templates.Directory,
 	}, "base:templates"))
+	m.Use(func(ctx *macaron.Context) {
+		if len(ctx.QueryStrings("alert")) != 0 {
+			ctx.Data["show_alert"] = true
+			ctx.Data["alert"] = ctx.QueryStrings("alert")[0]
+		}
+	})
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
 	m.Get("/projects", pages.Projects)
@@ -89,7 +95,9 @@ func main() {
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
-	m.Post("/admin/portfolio/new", binding.MultipartForm(pages.AdminPortfolioForm{}), pages.AdminPortfolioNew)
+	m.Post("/admin/portfolio/new", binding.MultipartForm(pages.AdminPortfolioNewForm{}), pages.AdminPortfolioNew)
+	m.Post("/admin/portfolio/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)
+	m.Get("/admin/portfolio/delete/:id", pages.AdminPortfolioDelete)
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {
