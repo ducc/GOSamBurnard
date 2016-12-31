@@ -43,4 +43,16 @@ $(document).ready(function() {
     $(".notification-hide").click(function() {
         $(this).parent().remove();
     });
+
+    var hash = $(location).attr("hash");
+    if (hash.startsWith("#admin-")) {
+        var elementId = "#" + hash.substring(7, hash.length) + "-section";
+
+        var activeElement = $(".active-section");
+        activeElement.removeClass("active-section");
+        activeElement.css("display", "none");
+
+        $(elementId).addClass("active-section");
+        $(elementId).css("display", "");
+    }
 });

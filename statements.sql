@@ -81,14 +81,20 @@ SELECT * FROM portfolio_images WHERE id=$1;
 --name: select-portfolio-images
 SELECT * FROM portfolio_images;
 
+--name: select-portfolio-images-max-index
+SELECT MAX(index) FROM portfolio_images;
+
 --name: insert-portfolio-image
-INSERT INTO portfolio_images (url, title, description, project_id) VALUES ($1, $2, $3, $4);
+INSERT INTO portfolio_images (url, title, description, index, project_id) VALUES ($1, $2, $3, $4, $5);
 
 --name: update-portfolio-image
 UPDATE portfolio_images SET url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
 
 --name: update-portfolio-image-info
 UPDATE portfolio_images SET title=$1, description=$2, project_id=$3 WHERE id=$4;
+
+--name: update-portfolio-image-order
+UPDATE portfolio_images SET index=$1 WHERE id=$2;
 
 --name: delete-portfolio-image
 DELETE FROM portfolio_images WHERE id=$1;

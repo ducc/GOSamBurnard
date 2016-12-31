@@ -98,6 +98,7 @@ func main() {
 	m.Post("/admin/portfolio/new", binding.MultipartForm(pages.AdminPortfolioNewForm{}), pages.AdminPortfolioNew)
 	m.Post("/admin/portfolio/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)
 	m.Get("/admin/portfolio/delete/:id", pages.AdminPortfolioDelete)
+	m.Get("/admin/portfolio/order/:id/:index/:action", pages.AdminPortfolioOrder)
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {

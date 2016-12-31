@@ -15,7 +15,7 @@ const image_file_path = "static/img/"
 func Admin(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 	addStandardData(ctx.Data)
 	var err error
-	ctx.Data["portfolio_images"], err = loadPortfolioItems(db, dot)
+	ctx.Data["portfolio_images"], err = loadAndSortPortfolioItems(db, dot)
 	if err != nil {
 		log.Fatal(err)
 		return

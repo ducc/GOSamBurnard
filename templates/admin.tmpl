@@ -5,19 +5,19 @@
 <div class="columns">
     <div class="column is-2">
         <nav class="panel admin-menu">
-            <a class="admin-button panel-block" data-toggle="#homepage-section">
+            <a class="admin-button panel-block" data-toggle="#homepage-section" href="#admin-homepage">
                 Homepage
             </a>
-            <a class="admin-button panel-block" data-toggle="#portfolio-section">
+            <a class="admin-button panel-block" data-toggle="#portfolio-section" href="#admin-portfolio">
                 Portfolio
             </a>
-            <a class="admin-button panel-block" data-toggle="#projects-section">
+            <a class="admin-button panel-block" data-toggle="#projects-section" href="#admin-projects">
                 Projects
             </a>
-            <a class="admin-button panel-block" data-toggle="#information-section">
+            <a class="admin-button panel-block" data-toggle="#information-section" href="#admin-information">
                 Information
             </a>
-            <a class="admin-button panel-block" data-toggle="#social-accounts-section">
+            <a class="admin-button panel-block" data-toggle="#social-accounts-section" href="#admin-social-accounts">
                 Social accounts
             </a>
         </nav>
@@ -51,12 +51,12 @@
                             <td>
                                 <div class="columns is-gapless">
                                     <div class="column">
-                                        <a class="button" style="margin: 5px;">
+                                        <a class="button" href="/admin/portfolio/order/{{ item.id }}/{{ item.index }}/up" style="margin: 5px;">
                                             <i class="fa fa-arrow-up"></i>
                                         </a>
                                     </div>
                                     <div class="column">
-                                        <a class="button" style="margin: 5px;">
+                                        <a class="button" href="/admin/portfolio/order/{{ item.id }}/{{ item.index }}/down" style="margin: 5px;">
                                             <i class="fa fa-arrow-down"></i>
                                         </a>
                                     </div>
