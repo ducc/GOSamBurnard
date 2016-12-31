@@ -1,31 +1,31 @@
+-- noinspection SqlResolveForFile
 --name: create-tables
 CREATE TABLE IF NOT EXISTS projects (
-  id SERIAL8 NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   date DATE NOT NULL
 );
 CREATE TABLE IF NOT EXISTS project_images (
-  id SERIAL8 NOT NULL PRIMARY KEY,
-  project_id SERIAL8 NOT NULL,
+  id SERIAL PRIMARY KEY,
+  project_id SERIAL NOT NULL,
   text TEXT NOT NULL,
   url VARCHAR(255) NOT NULL,
   index SMALLINT NOT NULL,
   FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 CREATE TABLE IF NOT EXISTS home_images (
-  id SERIAL8 NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   url VARCHAR(255) NOT NULL,
   index SMALLINT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS portfolio_images (
-  id SERIAL8 NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   url VARCHAR(255) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  index SMALLINT NOT NULL,
-  project_id SERIAL8 NOT NULL,
-  FOREIGN KEY (project_id) REFERENCES projects(id)
+  index SMALLINT DEFAULT NULL,
+  project_id INT DEFAULT NULL
 );
 CREATE TABLE IF NOT EXISTS information (
   about TEXT NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS session (
   expiry INTEGER NOT NULL
 );
 CREATE TABLE IF NOT EXISTS users (
-  id SERIAL8 NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   hash CHAR(128) NOT NULL,
   salt CHAR(128) NOT NULL
@@ -75,8 +75,14 @@ UPDATE home_images SET url=$1, index=$2 WHERE id=$3;
 --name: delete-home-image
 DELETE FROM home_images WHERE id=$1;
 
+--name: select-portfolio-image
+SELECT * FROM portfolio_images WHERE id=$1;
+
+--name: select-portfolio-images
+SELECT * FROM portfolio_images;
+
 --name: insert-portfolio-image
-INSERT INTO portfolio_images (url, title, description, index, project_id) VALUES ($1, $2, $3, $4, $5);
+INSERT INTO portfolio_images (url, title, description, project_id) VALUES ($1, $2, $3, $4);
 
 --name: update-portfolio-image
 UPDATE portfolio_images SET url=$1, title=$2, description=$3, index=$4, project_id=$5 WHERE id=$6;

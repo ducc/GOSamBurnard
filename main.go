@@ -1,10 +1,10 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/gchaincl/dotsql"
+	"github.com/go-macaron/binding"
 	"github.com/go-macaron/pongo2"
 	"github.com/go-macaron/session"
 	_ "github.com/go-macaron/session/postgres"
@@ -43,8 +43,6 @@ type (
 
 var (
 	conf *config
-	db   *sql.DB
-	dot  *dotsql.DotSql
 )
 
 func main() {
@@ -54,12 +52,12 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-	db, err = openDatabase()
+	db, err := openDatabase()
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	dot, err = dotsql.LoadFromFile("statements.sql")
+	dot, err := dotsql.LoadFromFile("statements.sql")
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -70,6 +68,8 @@ func main() {
 		return
 	}
 	m := macaron.Classic()
+	m.Map(db)
+	m.Map(dot)
 	m.Use(session.Sessioner(session.Options{
 		Provider: database_driver_name,
 		ProviderConfig: fmt.Sprintf(session_provider_format, conf.Database.Username, conf.Database.Password,
@@ -89,7 +89,7 @@ func main() {
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
-	m.Get("/test", pages.Test)
+	m.Post("/admin/portfolio/new", binding.MultipartForm(pages.AdminPortfolioForm{}), pages.AdminPortfolioNew)
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {
@@ -108,13 +108,4 @@ func loadConfig(path string) (*config, error) {
 		return nil, err
 	}
 	return &conf, nil
-}
-
-func toJSONString(input interface{}) (*string, error) {
-	body, err := json.Marshal(&input)
-	if err != nil {
-		return nil, err
-	}
-	temp := string(body)
-	return &temp, nil
 }

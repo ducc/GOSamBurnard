@@ -22,5 +22,9 @@ $(document).ready(function() {
         activeElement.css("display", "none");
         $(section).addClass("active-section");
         $(section).css("display", "");
+        $(".admin-button").each(function() {
+            $(this).css("background-color", "");
+        });
+        $(this).css("background-color", "#f5f5f5");
     });
 });

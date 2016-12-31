@@ -28,10 +28,110 @@
                 Homepage
             </h3>
         </div>
-        <div id="portfolio-section" class="box admin-section" style="display: none">
-            <h3 class="title">
-                Portfolio
-            </h3>
+        <div id="portfolio-section" class="admin-section" style="display: none">
+            <div class="box">
+                <h3 class="title">
+                    Portfolio
+                </h3>
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for item in portfolio_images %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td><img src="{{ item.image }}" style="max-width: 150px; max-height: 150px;" /></td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>
+                                <div class="columns is-gapless">
+                                    <div class="column">
+                                        <a class="button" style="margin: 5px;">
+                                            <i class="fa fa-arrow-up"></i>
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button" style="margin: 5px;">
+                                            <i class="fa fa-arrow-down"></i>
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button is-warning" style="margin: 5px;">
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button is-danger" style="margin: 5px;">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="box">
+                <h4 class="title">
+                    Edit image
+                </h4>
+                <p>
+                    Image ID: <code>1234PLACEHOLDER4321</code>
+                </p>
+                <br />
+                <form action="/admin/portfolio/edit" method="post" enctype="multipart/form-data">
+                    <p class="control">
+                        <label class="label">Image (choose file only if you want to change the image)</label>
+                        <input type="file" name="image">
+                    </p>
+                    <p class="control">
+                        <label class="label">Title</label>
+                        <input class="input" type="text" name="title" value="my current title">
+                    </p>
+                    <p class="control">
+                        <label class="label">Description</label>
+                        <textarea class="textarea" name="description">my current description</textarea>
+                    </p>
+                    <p class="control">
+                        <label class="label">Project (not required)</label>
+                        <input class="input" type="text" name="project" value="my current project">
+                    </p>
+                    <p class="control">
+                        <button type="submit">Save</button>
+                    </p>
+                </form>
+            </div>
+            <div class="box">
+                <h4 class="title">
+                    Add image
+                </h4>
+                <form action="/admin/portfolio/new" method="post" enctype="multipart/form-data">
+                    <p class="control">
+                        <label class="label">Image</label>
+                        <input type="file" name="image">
+                    </p>
+                    <p class="control">
+                        <label class="label">Title</label>
+                        <input class="input" type="text" name="title">
+                    </p>
+                    <p class="control">
+                        <label class="label">Description</label>
+                        <textarea class="textarea" name="description"></textarea>
+                    </p>
+                    <p class="control">
+                        <label class="label">Project (not required)</label>
+                        <input class="input" type="text" name="project">
+                    </p>
+                    <p class="control">
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>
+            </div>
         </div>
         <div id="projects-section" class="box admin-section" style="display: none">
             <h3 class="title">

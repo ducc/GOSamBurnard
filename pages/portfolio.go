@@ -1,7 +1,10 @@
 package pages
 
 import (
-    "gopkg.in/macaron.v1"
+	"database/sql"
+	"github.com/gchaincl/dotsql"
+	"gopkg.in/macaron.v1"
+	"log"
 )
 
 type portfolioItem struct {
@@ -11,25 +14,35 @@ type portfolioItem struct {
 	description string
 }
 
-func Portfolio(ctx *macaron.Context) {
+func loadPortfolioItems(db *sql.DB, dot *dotsql.DotSql) ([]portfolioItem, error) {
+	images := make([]portfolioItem, 0)
+	res, err := dot.Query(db, "select-portfolio-images")
+	if err != nil {
+		return nil, err
+	}
+	defer res.Close()
+	for res.Next() {
+		var (
+			index   sql.NullInt64
+			project sql.NullInt64
+		)
+		item := portfolioItem{}
+		err := res.Scan(&item.id, &item.image, &item.title, &item.description, &index, &project)
+		if err != nil {
+			return nil, err
+		}
+		images = append(images, item)
+	}
+	return images, nil
+}
+
+func Portfolio(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 	addStandardData(ctx.Data, "portfolio")
-    images := make([]portfolioItem, 0)
-    images = append(images, portfolioItem{
-        id: 1,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/CH_cow_2_cropped.jpg/250px-CH_cow_2_cropped.jpg",
-        title: "Cow 1 !!",
-        description: "this is my favorite cow",
-    }, portfolioItem{
-        id: 2,
-        image: "https://i.ytimg.com/vi/7FriQgP-3DM/maxresdefault.jpg",
-        title: "GET SHREK'D",
-        description: "this is my favorite cow",
-    }, portfolioItem{
-        id: 3,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/CH_cow_2_cropped.jpg/250px-CH_cow_2_cropped.jpg",
-        title: "Cow 3 !!",
-        description: "this is my favorite cow",
-    })
-    ctx.Data["images"] = images
-    ctx.HTMLSet(200, "base", "portfolio")
+	var err error
+	ctx.Data["images"], err = loadPortfolioItems(db, dot)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	ctx.HTMLSet(200, "base", "portfolio")
 }
