@@ -7,19 +7,6 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div style="padding: 10px;">
-               <!-- <div class="columns">
-                    <div class="column is-3">
-                        <div class="box">
-                            <h3 class="title is-3" style="font-weight: bold">
-                                {{ item.title }}
-                            </h3>
-                            <p>{{ item.description }}</p>
-                        </div>
-                    </div>
-                    <div class="column is-9">
-                        <img src="{{ item.image }}" width="100%">
-                    </div>
-                </div>-->
                 <img src="{{ item.image }}" width="100%">
                 <div class="modal-image-caption">
                     <div class="columns">
@@ -50,7 +37,7 @@
     {% for item in images %}
         <div class="column is-4">
             <figure class="image modal-toggler" data-toggle="#modal-{{ item.id }}">
-                <img src="{{ item.image }}" />
+                <img src="{{ item.thumbnail }}" />
             </figure>
         </div>
     {% endfor %}

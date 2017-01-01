@@ -1,51 +1,52 @@
 -- noinspection SqlResolveForFile
 --name: create-tables
 CREATE TABLE IF NOT EXISTS projects (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
+  id          SERIAL PRIMARY KEY,
+  title       VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  date DATE NOT NULL
+  date        DATE NOT NULL
 );
 CREATE TABLE IF NOT EXISTS project_images (
-  id SERIAL PRIMARY KEY,
-  project_id SERIAL NOT NULL,
-  text TEXT NOT NULL,
-  url VARCHAR(255) NOT NULL,
-  index SMALLINT NOT NULL,
+  id          SERIAL PRIMARY KEY,
+  project_id  SERIAL NOT NULL,
+  text        TEXT NOT NULL,
+  url         VARCHAR(255) NOT NULL,
+  index       SMALLINT NOT NULL,
   FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 CREATE TABLE IF NOT EXISTS home_images (
-  id SERIAL PRIMARY KEY,
-  url VARCHAR(255) NOT NULL,
+  id    SERIAL PRIMARY KEY,
+  url   VARCHAR(255) NOT NULL,
   index SMALLINT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS portfolio_images (
-  id SERIAL PRIMARY KEY,
-  url VARCHAR(255) NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
-  index SMALLINT DEFAULT NULL,
-  project_id INT DEFAULT NULL
+  id            SERIAL PRIMARY KEY,
+  thumbnail_url VARCHAR(255) NOT NULL,
+  image_url     VARCHAR(255) NOT NULL,
+  title         VARCHAR(255) NOT NULL,
+  description   TEXT NOT NULL,
+  index         SMALLINT DEFAULT NULL,
+  project_id    INT DEFAULT NULL
 );
 CREATE TABLE IF NOT EXISTS information (
-  about TEXT NOT NULL,
+  about   TEXT NOT NULL,
   contact TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS social_accounts (
-  id VARCHAR(255) NOT NULL,
-  icon VARCHAR(63) NOT NULL,
-  link VARCHAR(255) NOT NULL
+  id    VARCHAR(255) NOT NULL,
+  icon  VARCHAR(63) NOT NULL,
+  link  VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS session (
-  key CHAR(16) NOT NULL PRIMARY KEY,
-  data BYTEA,
-  expiry INTEGER NOT NULL
+  key     CHAR(16) NOT NULL PRIMARY KEY,
+  data    BYTEA,
+  expiry  INTEGER NOT NULL
 );
 CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
-  hash CHAR(128) NOT NULL,
-  salt CHAR(128) NOT NULL
+  id        SERIAL PRIMARY KEY,
+  username  VARCHAR(255) NOT NULL,
+  hash      CHAR(128) NOT NULL,
+  salt      CHAR(128) NOT NULL
 );
 
 --name: insert-project
@@ -85,10 +86,13 @@ SELECT * FROM portfolio_images;
 SELECT MAX(index) FROM portfolio_images;
 
 --name: insert-portfolio-image
-INSERT INTO portfolio_images (url, title, description, index, project_id) VALUES ($1, $2, $3, $4, $5);
+INSERT INTO portfolio_images (thumbnail_url, image_url, title, description, index, project_id) VALUES ($1, $2, $3, $4, $5, $6);
 
---name: update-portfolio-image
-UPDATE portfolio_images SET url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
+--name: update-portfolio-image-thumbnail
+UPDATE portfolio_images SET thumbnail_url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
+
+--name: update-portfolio-image-main
+UPDATE portfolio_images SET image_url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
 
 --name: update-portfolio-image-info
 UPDATE portfolio_images SET title=$1, description=$2, project_id=$3 WHERE id=$4;

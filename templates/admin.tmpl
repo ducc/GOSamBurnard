@@ -36,6 +36,7 @@
                 <table class="table">
                     <tr>
                         <th>Id</th>
+                        <th>Thumbnail</th>
                         <th>Image</th>
                         <th>Title</th>
                         <th>Description</th>
@@ -45,7 +46,8 @@
                     {% for item in portfolio_images %}
                         <tr>
                             <td>{{ item.id }}</td>
-                            <td><img src="{{ item.image }}" style="max-width: 150px; max-height: 150px;" /></td>
+                            <td><img src="{{ item.thumbnail }}" style="max-width: 100px; max-height: 100px;" /></td>
+                            <td><img src="{{ item.image }}" style="max-width: 100px; max-height: 100px;" /></td>
                             <td>{{ item.title }}</td>
                             <td>{{ item.description }}</td>
                             <td>
@@ -91,6 +93,10 @@
                     <form action="/admin/portfolio/edit" method="post" enctype="multipart/form-data">
                         <input type="text" name="id" value="{{ item.id }}" style="display: none">
                         <p class="control">
+                            <label class="label">Thumbnail (choose file only if you want to change the image)</label>
+                            <input type="file" name="thumbnail">
+                        </p>
+                        <p class="control">
                             <label class="label">Image (choose file only if you want to change the image)</label>
                             <input type="file" name="image">
                         </p>
@@ -117,6 +123,10 @@
                     Add image
                 </h4>
                 <form action="/admin/portfolio/new" method="post" enctype="multipart/form-data">
+                    <p class="control">
+                        <label class="label">Thumbnail</label>
+                        <input type="file" name="thumbnail">
+                    </p>
                     <p class="control">
                         <label class="label">Image</label>
                         <input type="file" name="image">

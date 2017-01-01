@@ -13,6 +13,7 @@ import (
 type (
 	AdminPortfolioEditForm struct {
 		Id          int                   `form:"id"`
+		Thumbnail   *multipart.FileHeader `form:"thumbnail"`
 		Image       *multipart.FileHeader `form:"image"`
 		Title       string                `form:"title"`
 		Description string                `form:"description"`
@@ -20,6 +21,7 @@ type (
 	}
 	AdminPortfolioNewForm struct {
 		Image       *multipart.FileHeader `form:"image"`
+		Thumbnail   *multipart.FileHeader `form:"thumbnail"`
 		Title       string                `form:"title"`
 		Description string                `form:"description"`
 		Project     int                   `form:"project"`
@@ -27,6 +29,7 @@ type (
 	portfolioItem struct {
 		id          uint
 		image       string
+		thumbnail   string
 		title       string
 		description string
 		index       int
@@ -56,7 +59,7 @@ func loadPortfolioItems(db *sql.DB, dot *dotsql.DotSql) (portfolioItems, error) 
 	for res.Next() {
 		var project sql.NullInt64
 		item := portfolioItem{}
-		err := res.Scan(&item.id, &item.image, &item.title, &item.description, &item.index, &project)
+		err := res.Scan(&item.id, &item.thumbnail, &item.image, &item.title, &item.description, &item.index, &project)
 		if err != nil {
 			return nil, err
 		}
@@ -86,7 +89,12 @@ func Portfolio(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 }
 
 func AdminPortfolioNew(ctx *macaron.Context, form AdminPortfolioNewForm, db *sql.DB, dot *dotsql.DotSql) {
-	name, err := saveImage(form.Image)
+	thumbnailPath, err := saveImage(form.Thumbnail)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	imagePath, err := saveImage(form.Image)
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -115,7 +123,7 @@ func AdminPortfolioNew(ctx *macaron.Context, form AdminPortfolioNewForm, db *sql
 	if form.Project != 0 {
 		x = form.Project
 	}
-	_, err = dot.Exec(db, "insert-portfolio-image", name, form.Title, form.Description, index+1, x)
+	_, err = dot.Exec(db, "insert-portfolio-image", thumbnailPath, imagePath, form.Title, form.Description, index+1, x)
 	if err != nil {
 		log.Fatalln(err)
 		return
@@ -126,31 +134,47 @@ func AdminPortfolioNew(ctx *macaron.Context, form AdminPortfolioNewForm, db *sql
 func AdminPortfolioEdit(ctx *macaron.Context, form AdminPortfolioEditForm, db *sql.DB, dot *dotsql.DotSql) {
 	var (
 		err  error
-		name *string
+		x interface{}
+		thumnailPath, imagePath *string
+		statement string
+		args = make([]interface{}, 0)
 	)
-	if form.Image != nil {
-		name, err = saveImage(form.Image)
+	if form.Project != 0 {
+		x = form.Project
+	}
+	img := false
+	if form.Thumbnail != nil {
+		thumnailPath, err = saveImage(form.Thumbnail)
 		if err != nil {
 			log.Fatal(err)
 			return
 		}
+		args = append(args, thumnailPath)
+		statement = "update-portfolio-image-thumbnail"
+		img = true
 	}
-	var x interface{}
-	if form.Project != 0 {
-		x = form.Project
-	}
-	if name != nil {
-		_, err = dot.Exec(db, "update-portfolio-image", *name, form.Title, form.Description, x, form.Id)
+	if form.Image != nil {
+		imagePath, err = saveImage(form.Image)
 		if err != nil {
-			log.Fatalln(err)
+			log.Fatal(err)
 			return
 		}
-	} else {
-		_, err = dot.Exec(db, "update-portfolio-image-info", form.Title, form.Description, x, form.Id)
-		if err != nil {
-			log.Fatalln(err)
-			return
+		args = append(args, imagePath)
+		if thumnailPath == nil {
+			statement = "update-portfolio-image-main"
+		} else {
+			statement = "update-portfolio-image"
 		}
+		img = true
+	}
+	if !img {
+		statement = "update-portfolio-image-info"
+	}
+	args = append(args, form.Title, form.Description, x, form.Id)
+	_, err = dot.Exec(db, statement, args...)
+	if err != nil {
+		log.Fatalln(err)
+		return
 	}
 	ctx.Redirect("/admin?alert=Edited+portfolio+image!#admin-portfolio")
 }
