@@ -88,6 +88,9 @@ SELECT MAX(index) FROM portfolio_images;
 --name: insert-portfolio-image
 INSERT INTO portfolio_images (thumbnail_url, image_url, title, description, index, project_id) VALUES ($1, $2, $3, $4, $5, $6);
 
+--name: update-portfolio-image
+UPDATE portfolio_images SET thumbnail_url=$1, image_url=$2, title=$3, description=$4, project_id=$5 WHERE id=$6;
+
 --name: update-portfolio-image-thumbnail
 UPDATE portfolio_images SET thumbnail_url=$1, title=$2, description=$3, project_id=$4 WHERE id=$5;
 

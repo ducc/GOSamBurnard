@@ -41,18 +41,13 @@ type (
 	}
 )
 
-var (
-	conf *config
-)
-
 func main() {
-	var err error
-	conf, err = loadConfig(config_path)
+	conf, err := loadConfig(config_path)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	db, err := openDatabase()
+	db, err := openDatabase(conf)
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -73,7 +68,7 @@ func main() {
 	m.Use(session.Sessioner(session.Options{
 		Provider: database_driver_name,
 		ProviderConfig: fmt.Sprintf(session_provider_format, conf.Database.Username, conf.Database.Password,
-			conf.Database.Host, conf.Database.Port, conf.Database.Database, sslModeString()),
+			conf.Database.Host, conf.Database.Port, conf.Database.Database, sslModeString(conf.Database.Ssl)),
 	}))
 	m.Use(macaron.Static("static", macaron.StaticOptions{
 		Prefix: "static",
