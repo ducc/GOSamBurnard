@@ -1,9 +1,9 @@
 package pages
 
 import (
-	"time"
 	"io/ioutil"
 	"log"
+	"time"
 )
 
 func Init() {

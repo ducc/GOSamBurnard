@@ -28,10 +28,6 @@ CREATE TABLE IF NOT EXISTS portfolio_images (
   index         SMALLINT DEFAULT NULL,
   project_id    INT DEFAULT NULL
 );
-CREATE TABLE IF NOT EXISTS information (
-  about   TEXT NOT NULL,
-  contact TEXT NOT NULL
-);
 CREATE TABLE IF NOT EXISTS social_accounts (
   id    VARCHAR(255) NOT NULL,
   icon  VARCHAR(63) NOT NULL,
@@ -43,8 +39,7 @@ CREATE TABLE IF NOT EXISTS session (
   expiry  INTEGER NOT NULL
 );
 CREATE TABLE IF NOT EXISTS users (
-  id        SERIAL PRIMARY KEY,
-  username  VARCHAR(255) NOT NULL,
+  username  VARCHAR(255) PRIMARY KEY NOT NULL,
   hash      CHAR(128) NOT NULL,
   salt      CHAR(128) NOT NULL
 );

@@ -2,8 +2,8 @@ package pages
 
 import (
 	"gopkg.in/macaron.v1"
-	"log"
 	"io/ioutil"
+	"log"
 	"os"
 )
 

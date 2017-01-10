@@ -133,11 +133,11 @@ func AdminPortfolioNew(ctx *macaron.Context, form AdminPortfolioNewForm, db *sql
 
 func AdminPortfolioEdit(ctx *macaron.Context, form AdminPortfolioEditForm, db *sql.DB, dot *dotsql.DotSql) {
 	var (
-		err  error
-		x interface{}
+		err                     error
+		x                       interface{}
 		thumnailPath, imagePath *string
-		statement string
-		args = make([]interface{}, 0)
+		statement               string
+		args                    = make([]interface{}, 0)
 	)
 	if form.Project != 0 {
 		x = form.Project
