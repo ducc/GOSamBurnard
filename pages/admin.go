@@ -16,6 +16,7 @@ func Admin(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 	addStandardData(ctx.Data)
 	var err error
 	ctx.Data["portfolio_images"], err = loadAndSortPortfolioItems(db, dot)
+	ctx.Data["about_text"], ctx.Data["contact_text"] = about, contact
 	if err != nil {
 		log.Fatal(err)
 		return

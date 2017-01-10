@@ -82,11 +82,12 @@ func main() {
 			ctx.Data["alert"] = ctx.QueryStrings("alert")[0]
 		}
 	})
+	pages.Init()
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
 	m.Get("/projects", pages.Projects)
 	m.Get("/projects/:id", pages.Project)
-	m.Get("/about", pages.About)
+	m.Get("/about", pages.Information)
 	m.Get("/login", pages.Login)
 	m.Post("/logout", pages.Logout)
 	m.Get("/admin", pages.Admin)
@@ -94,6 +95,7 @@ func main() {
 	m.Post("/admin/portfolio/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)
 	m.Get("/admin/portfolio/delete/:id", pages.AdminPortfolioDelete)
 	m.Get("/admin/portfolio/order/:id/:index/:action", pages.AdminPortfolioOrder)
+	m.Post("/admin/information", binding.Form(pages.InformationForm{}), pages.AdminInformation)
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {

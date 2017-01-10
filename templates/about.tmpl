@@ -10,7 +10,7 @@
                 About Me
             </h3>
             <p>
-                I'm an illustrator lol.
+                {{ about_text|safe }}
             </p>
         </div>
         <div class="columns">
@@ -50,12 +50,9 @@
                 Contact Me
             </h3>
             <p>
-                Please smack that email button.
+                {{ contact_text|safe }}
             </p>
-            <p>
-                <a>samburnardart@gmail.com</a>
-            </p>
-            <br />
+            <!--<br />
             <form action="#" method="post">
                 <p class="control">
                     <label class="label">Full name</label>
@@ -82,7 +79,7 @@
                         Send Email
                     </button>
                 </p>
-            </form>
+            </form>-->
         </div>
     </div>
 </div>

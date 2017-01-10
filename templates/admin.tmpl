@@ -158,6 +158,19 @@
             <h3 class="title">
                 Information
             </h3>
+            <form action="/admin/information" method="post">
+                <p class="control">
+                    <label class="label">About text</label>
+                    <textarea class="textarea" name="about">{{ about_text }}</textarea>
+                </p>
+                <p class="control">
+                    <label class="label">Contact text</label>
+                    <textarea class="textarea" name="contact">{{ contact_text }}</textarea>
+                </p>
+                <p class="control">
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
         </div>
         <div id="social-accounts-section" class="box admin-section" style="display: none">
             <h3 class="title">

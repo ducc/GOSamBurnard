@@ -106,12 +106,6 @@ UPDATE portfolio_images SET index=$1 WHERE id=$2;
 --name: delete-portfolio-image
 DELETE FROM portfolio_images WHERE id=$1;
 
---name: insert-information
-INSERT INTO information (about, contact) VALUES ($1, $2);
-
---name: update-information
-UPDATE information SET about=$1, contact=$2;
-
 --name: insert-social-account
 INSERT INTO social_accounts (id, icon, link) VALUES ($1, $2, $3);
 
