@@ -38,6 +38,8 @@ type (
 		Templates struct {
 			Directory string `json:"directory"`
 		} `json:"templates"`
+
+		Users []pages.User `json:"users"`
 	}
 )
 
@@ -63,6 +65,7 @@ func main() {
 		return
 	}
 	m := macaron.Classic()
+	m.Map(conf.Users)
 	m.Map(db)
 	m.Map(dot)
 	m.Use(session.Sessioner(session.Options{
@@ -85,17 +88,32 @@ func main() {
 	pages.Init()
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
-	m.Get("/projects", pages.Projects)
-	//m.Get("/projects/:id", pages.Project)
+	m.Group("/projects", func() {
+		m.Get("/", pages.Projects)
+		//m.Get("/:id", pages.Project)
+	})
 	m.Get("/about", pages.Information)
-	m.Get("/login", pages.Login)
-	m.Post("/logout", pages.Logout)
-	m.Get("/admin", pages.Admin)
-	m.Post("/admin/portfolio/new", binding.MultipartForm(pages.AdminPortfolioNewForm{}), pages.AdminPortfolioNew)
-	m.Post("/admin/portfolio/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)
-	m.Get("/admin/portfolio/delete/:id", pages.AdminPortfolioDelete)
-	m.Get("/admin/portfolio/order/:id/:index/:action", pages.AdminPortfolioOrder)
-	m.Post("/admin/information", binding.Form(pages.InformationForm{}), pages.AdminInformation)
+	m.Group("/login", func() {
+		m.Get("/", pages.Login)
+		m.Post("/", binding.Form(pages.LoginForm{}), pages.LoginSubmit)
+	})
+	m.Get("/logout", pages.Logout)
+	m.Group("/admin", func() {
+		m.Get("/", pages.Admin)
+		m.Group("/portfolio", func() {
+			m.Post("/new", binding.MultipartForm(pages.AdminPortfolioNewForm{}), pages.AdminPortfolioNew)
+			m.Post("/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)
+			m.Get("/delete/:id", pages.AdminPortfolioDelete)
+			m.Get("/order/:id/:index/:action", pages.AdminPortfolioOrder)
+		})
+		m.Post("/information", binding.Form(pages.InformationForm{}), pages.AdminInformation)
+	}, func(ctx *macaron.Context, sess session.Store) {
+		authenticated := sess.Get("authenticated")
+		if authenticated == nil || !authenticated.(bool) {
+			ctx.Redirect("/login?alert=You+must+be+logged+in+to+view+that+page!")
+			return
+		}
+	})
 	log.Println("Starting GOSamBurnard on", conf.Http.Port)
 	err = http.ListenAndServe(conf.Http.Port, m)
 	if err != nil {

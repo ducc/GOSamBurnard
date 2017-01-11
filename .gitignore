@@ -2,5 +2,4 @@
 config.json
 *.exe
 static/img
-about.txt
-contact.txt
+*.txt

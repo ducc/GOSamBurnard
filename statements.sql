@@ -38,11 +38,6 @@ CREATE TABLE IF NOT EXISTS session (
   data    BYTEA,
   expiry  INTEGER NOT NULL
 );
-CREATE TABLE IF NOT EXISTS users (
-  username  VARCHAR(255) PRIMARY KEY NOT NULL,
-  hash      CHAR(128) NOT NULL,
-  salt      CHAR(128) NOT NULL
-);
 
 --name: insert-project
 INSERT INTO projects (title, description, date) VALUES ($1, $2, $3);

@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"time"
+	"io"
+	"crypto/sha512"
 )
 
 func Init() {
@@ -26,4 +28,14 @@ func addStandardData(model map[string]interface{}, activeTab ...string) {
 	if len(activeTab) != 0 {
 		model["active_tab"] = activeTab[0]
 	}
+}
+
+func sha512Hash(input string) ([]byte, error) {
+	h512 := sha512.New()
+	_, err := io.WriteString(h512, input)
+	if err != nil {
+		return nil, err
+	}
+	body := h512.Sum(nil)
+	return body, nil
 }

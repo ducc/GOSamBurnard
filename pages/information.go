@@ -9,17 +9,12 @@ import (
 
 const about_path, contact_path = "about.txt", "contact.txt"
 
-type (
-	InformationForm struct {
-		About   string `form:"about"`
-		Contact string `form:"contact"`
-	}
-)
+type InformationForm struct {
+	About   string `form:"about"`
+	Contact string `form:"contact"`
+}
 
-var (
-	about   string
-	contact string
-)
+var about, contact string
 
 func Information(ctx *macaron.Context) {
 	addStandardData(ctx.Data, "about")
