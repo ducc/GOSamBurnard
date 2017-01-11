@@ -19,7 +19,7 @@
                             <h3 class="title is-3" style="font-weight: bold">
                                 {{ item.title }}
                             </h3>
-                            <p>{{ item.description }}</p>
+                            <p>{{ item.description|safe }}</p>
                         </div>
                         <div class="column is-1 is-2-mobile">
                             <a class="button next is-pulled-right is-fullwidth" style="height: 100%">
