@@ -82,7 +82,6 @@ func main() {
 			ctx.Data["alert"] = ctx.QueryStrings("alert")[0]
 		}
 	})
-	m.Before()
 	pages.Init()
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
