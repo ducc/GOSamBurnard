@@ -1,6 +1,8 @@
 package pages
 
 import (
+	"database/sql"
+	"github.com/gchaincl/dotsql"
 	"gopkg.in/macaron.v1"
 	"io/ioutil"
 	"log"
@@ -16,11 +18,17 @@ type InformationForm struct {
 
 var about, contact string
 
-func Information(ctx *macaron.Context) {
+func Information(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
 	addStandardData(ctx.Data, "about")
 	log.Println(about, contact)
 	ctx.Data["about_text"] = about
 	ctx.Data["contact_text"] = contact
+	var err error
+	ctx.Data["social_accounts"], err = loadSocialAccounts(db, dot)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	ctx.HTMLSet(200, "base", "about")
 }
 

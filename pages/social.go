@@ -17,10 +17,12 @@ type (
 		Twitter   string `form:"twitter"`
 		Facebook  string `form:"facebook"`
 		Youtube   string `form:"youtube"`
+		Behance   string `form:"behance"`
+		Linkedin  string `form:"linkedin"`
 	}
 )
 
-var allowedSocialAccounts = [...]string{"instagram", "twitter", "facebook", "youtube"}
+var allowedSocialAccounts = [...]string{"instagram", "twitter", "facebook", "youtube", "behance", "linkedin"}
 
 func loadSocialAccounts(db *sql.DB, dot *dotsql.DotSql) ([]socialAccount, error) {
 	rows, err := dot.Query(db, "select-social-accounts")
@@ -89,6 +91,8 @@ func AdminSocialAccounts(ctx *macaron.Context, form SocialAccountsForm, db *sql.
 	err = insertSocialAccount(db, dot, accounts, "twitter", form.Twitter)
 	err = insertSocialAccount(db, dot, accounts, "facebook", form.Facebook)
 	err = insertSocialAccount(db, dot, accounts, "youtube", form.Youtube)
+	err = insertSocialAccount(db, dot, accounts, "behance", form.Behance)
+	err = insertSocialAccount(db, dot, accounts, "linkedin", form.Linkedin)
 	if err != nil {
 		log.Fatal(err)
 		return

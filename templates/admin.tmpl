@@ -180,7 +180,7 @@
                 Social accounts
             </h3>
             <form action="/admin/social_accounts" method="post">
-                {% for account in social_accounts %}
+                {% for account in admin_social_accounts %}
                     <p class="control">
                         <label class="label">{{ account.id }}</label>
                         <input class="input" type="text" name="{{ account.id }}" value="{{ account.link }}">
