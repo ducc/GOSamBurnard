@@ -1,11 +1,11 @@
 package pages
 
 import (
+	"crypto/sha512"
+	"io"
 	"io/ioutil"
 	"log"
 	"time"
-	"io"
-	"crypto/sha512"
 )
 
 func Init() {
@@ -38,4 +38,13 @@ func sha512Hash(input string) ([]byte, error) {
 	}
 	body := h512.Sum(nil)
 	return body, nil
+}
+
+func arrayContains(array []string, item string) bool {
+	for _, i := range array {
+		if i == item {
+			return true
+		}
+	}
+	return false
 }

@@ -1,10 +1,10 @@
 package pages
 
 import (
-	"gopkg.in/macaron.v1"
 	"fmt"
-	"log"
 	"github.com/go-macaron/session"
+	"gopkg.in/macaron.v1"
+	"log"
 )
 
 type (
@@ -47,7 +47,7 @@ func LoginSubmit(ctx *macaron.Context, sess session.Store, form LoginForm, users
 		}
 	}
 	if u == nil {
-		ctx.Redirect("/login?alert=Invalid username or password!")
+		ctx.Redirect("/login?alert=Invalid+username+or+password!")
 		return
 	}
 	var valid bool
@@ -57,11 +57,11 @@ func LoginSubmit(ctx *macaron.Context, sess session.Store, form LoginForm, users
 		return
 	}
 	if !valid {
-		ctx.Redirect("/login?alert=Invalid username or password!")
+		ctx.Redirect("/login?alert=Invalid+username+or+password!")
 		return
 	}
 	sess.Set("authenticated", true)
-	ctx.Redirect("/admin?alert=Logged in!")
+	ctx.Redirect("/admin?alert=Logged+in!")
 }
 
 func Logout(ctx *macaron.Context, sess session.Store) {
@@ -71,5 +71,5 @@ func Logout(ctx *macaron.Context, sess session.Store) {
 		return
 	}
 	sess.Delete("authenticated")
-	ctx.Redirect("/?alert=Logged out!")
+	ctx.Redirect("/?alert=Logged+out!")
 }

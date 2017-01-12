@@ -179,6 +179,17 @@
             <h3 class="title">
                 Social accounts
             </h3>
+            <form action="/admin/social_accounts" method="post">
+                {% for account in social_accounts %}
+                    <p class="control">
+                        <label class="label">{{ account.id }}</label>
+                        <input class="input" type="text" name="{{ account.id }}" value="{{ account.link }}">
+                    </p>
+                {% endfor %}
+                <p class="control">
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
         </div>
     </div>
 </div>

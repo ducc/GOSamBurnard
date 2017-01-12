@@ -29,8 +29,7 @@ CREATE TABLE IF NOT EXISTS portfolio_images (
   project_id    INT DEFAULT NULL
 );
 CREATE TABLE IF NOT EXISTS social_accounts (
-  id    VARCHAR(255) NOT NULL,
-  icon  VARCHAR(63) NOT NULL,
+  id    VARCHAR(255) PRIMARY KEY NOT NULL,
   link  VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS session (
@@ -96,11 +95,17 @@ UPDATE portfolio_images SET index=$1 WHERE id=$2;
 --name: delete-portfolio-image
 DELETE FROM portfolio_images WHERE id=$1;
 
+--name: select-social-accounts
+SELECT * FROM social_accounts;
+
+--name: select-social-account
+SELECT * FROM social_accounts WHERE id=$1;
+
 --name: insert-social-account
-INSERT INTO social_accounts (id, icon, link) VALUES ($1, $2, $3);
+INSERT INTO social_accounts (id, link) VALUES ($1, $2);
 
 --name: update-social-account
-UPDATE social_accounts SET id=$1, icon=$2, link=$3 WHERE id=$4;
+UPDATE social_accounts SET link=$1 WHERE id=$2;
 
 --name: delete-social-account
 DELETE FROM social_accounts WHERE id=$1;

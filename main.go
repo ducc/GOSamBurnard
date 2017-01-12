@@ -107,6 +107,7 @@ func main() {
 			m.Get("/order/:id/:index/:action", pages.AdminPortfolioOrder)
 		})
 		m.Post("/information", binding.Form(pages.InformationForm{}), pages.AdminInformation)
+		m.Post("/social_accounts", binding.Form(pages.SocialAccountsForm{}), pages.AdminSocialAccounts)
 	}, func(ctx *macaron.Context, sess session.Store) {
 		authenticated := sess.Get("authenticated")
 		if authenticated == nil || !authenticated.(bool) {
