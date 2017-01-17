@@ -1,11 +1,11 @@
 package pages
 
 import (
-	"gopkg.in/macaron.v1"
-	"mime/multipart"
-	"github.com/gchaincl/dotsql"
 	"database/sql"
+	"github.com/gchaincl/dotsql"
+	"gopkg.in/macaron.v1"
 	"log"
+	"mime/multipart"
 	"sort"
 	"strconv"
 )
@@ -16,12 +16,12 @@ type (
 	}
 
 	AdminSliderEditForm struct {
-		Id string `form:"id"`
+		Id    string                `form:"id"`
 		Image *multipart.FileHeader `form:"image"`
 	}
 
 	sliderItem struct {
-		id uint
+		id    uint
 		image string
 		index int
 	}
