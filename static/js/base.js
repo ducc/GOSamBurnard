@@ -2,6 +2,9 @@ $(document).ready(function() {
     $(".modal-toggler").click(function() {
         var modalId = $(this).attr("data-toggle");
         $(modalId).addClass("is-active");
+        var imageDiv = $(modalId).find(".modal-image");
+        var image = $(imageDiv).attr("data-image");
+        $(imageDiv).html('<img src="' + image + '" width="100%">');
     });
 
     $(".modal-button").click(function() {
