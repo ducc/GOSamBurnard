@@ -56,14 +56,27 @@ UPDATE project_images SET project_id=$1, text=$2, url=$3, index=$4 WHERE id=$5;
 --name: delete-project-image
 DELETE FROM project_images WHERE id=$1;
 
+
+
+--name: select-home-images
+SELECT * FROM home_images;
+
+--name: select-home-images-max-index
+SELECT MAX(index) FROM home_images;
+
 --name: insert-home-image
 INSERT INTO home_images (url, index) VALUES ($1, $2);
 
 --name: update-home-image
-UPDATE home_images SET url=$1, index=$2 WHERE id=$3;
+UPDATE home_images SET url=$1 WHERE id=$2;
+
+--name: update-home-image-order
+UPDATE home_images SET index=$1 WHERE id=$2;
 
 --name: delete-home-image
 DELETE FROM home_images WHERE id=$1;
+
+
 
 --name: select-portfolio-image
 SELECT * FROM portfolio_images WHERE id=$1;
@@ -94,6 +107,8 @@ UPDATE portfolio_images SET index=$1 WHERE id=$2;
 
 --name: delete-portfolio-image
 DELETE FROM portfolio_images WHERE id=$1;
+
+
 
 --name: select-social-accounts
 SELECT * FROM social_accounts;

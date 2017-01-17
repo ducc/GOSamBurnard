@@ -2,9 +2,6 @@ $(document).ready(function() {
     $(".modal-toggler").click(function() {
         var modalId = $(this).attr("data-toggle");
         $(modalId).addClass("is-active");
-        var imageDiv = $(modalId).find(".modal-image");
-        var image = $(imageDiv).attr("data-image");
-        $(imageDiv).html('<img src="' + image + '" width="100%">');
     });
 
     $(".modal-button").click(function() {
@@ -31,16 +28,24 @@ $(document).ready(function() {
         $(this).css("background-color", "#f5f5f5");
     });
 
+    $(".slider-edit-button").click(function() {
+        var editSectionId = $(this).attr("data-toggle");
+        $(".slider-edit-section").each(function() {
+            $(this).css("display", "none");
+        });
+        $(editSectionId).css("display", "");
+    });
+
+    $(".edit-section-close").click(function() {
+        $(this).parent().css("display", "none");
+    });
+
     $(".portfolio-edit-button").click(function() {
         var editSectionId = $(this).attr("data-toggle");
         $(".portfolio-edit-section").each(function() {
             $(this).css("display", "none");
         });
         $(editSectionId).css("display", "");
-    });
-
-    $(".portfolio-edit-section-close").click(function() {
-        $(this).parent().css("display", "none");
     });
 
     $(".notification-hide").click(function() {

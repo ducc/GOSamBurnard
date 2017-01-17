@@ -19,6 +19,7 @@ type (
 		Description string                `form:"description"`
 		Project     int                   `form:"project"`
 	}
+
 	AdminPortfolioNewForm struct {
 		Image       *multipart.FileHeader `form:"image"`
 		Thumbnail   *multipart.FileHeader `form:"thumbnail"`
@@ -26,6 +27,7 @@ type (
 		Description string                `form:"description"`
 		Project     int                   `form:"project"`
 	}
+
 	portfolioItem struct {
 		id          uint
 		image       string
@@ -34,6 +36,7 @@ type (
 		description string
 		index       int
 	}
+
 	portfolioItems []portfolioItem
 )
 
@@ -59,7 +62,7 @@ func loadPortfolioItems(db *sql.DB, dot *dotsql.DotSql) (portfolioItems, error) 
 	for res.Next() {
 		var project sql.NullInt64
 		item := portfolioItem{}
-		err := res.Scan(&item.id, &item.thumbnail, &item.image, &item.title, &item.description, &item.index, &project)
+		err = res.Scan(&item.id, &item.thumbnail, &item.image, &item.title, &item.description, &item.index, &project)
 		if err != nil {
 			return nil, err
 		}

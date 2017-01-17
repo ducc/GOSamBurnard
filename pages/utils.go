@@ -5,8 +5,12 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"mime/multipart"
+	"os"
 	"time"
 )
+
+const image_file_path = "static/img/"
 
 func Init() {
 	body, err := ioutil.ReadFile(about_path)
@@ -47,4 +51,21 @@ func arrayContains(array []string, item string) bool {
 		}
 	}
 	return false
+}
+
+func saveImage(header *multipart.FileHeader) (*string, error) {
+	name := image_file_path + header.Filename
+	file, err := header.Open()
+	if err != nil {
+		return nil, err
+	}
+	body, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+	err = ioutil.WriteFile(name, body, os.ModeAppend)
+	if err != nil {
+		return nil, err
+	}
+	return &name, nil
 }

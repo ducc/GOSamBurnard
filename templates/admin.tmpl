@@ -26,10 +26,93 @@
         </nav>
     </div>
     <div class="column is-10">
-        <div id="homepage-section" class="box admin-section active-section">
-            <h3 class="title">
-                Homepage
-            </h3>
+        <div id="homepage-section" class="admin-section active-section">
+            <div class="box">
+                <h3 class="title">
+                    Homepage
+                </h3>
+            </div>
+            <div class="box">
+                <h4 class="title">
+                    Slider images
+                </h4>
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th></th>
+                    </tr>
+                    {% for item in slider_items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>
+                                <img src="{{ item.image }}" style="max-width: 100px; max-height: 100px;" />
+                            </td>
+                            <td>
+                                <div class="columns is-gapless">
+                                    <div class="column">
+                                        <a class="button" href="/admin/slider/order/{{ item.id }}/{{ item.index }}/up" style="margin: 5px;">
+                                            <i class="fa fa-arrow-up"></i>
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button" href="/admin/slider/order/{{ item.id }}/{{ item.index }}/down" style="margin: 5px;">
+                                            <i class="fa fa-arrow-down"></i>
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button is-warning portfolio-edit-button" data-toggle="#slider-edit-{{ item.id }}" href="#slider-edit-{{ item.id }}" style="margin: 5px;">
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <div class="column">
+                                        <a class="button is-danger" href="/admin/slider/delete/{{ item.id }}" style="margin: 5px;">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% for item in slider_items %}
+            <div class="box slider-edit-section" id="slider-edit-{{ item.id }}" style="display: none">
+                <a class="is-pulled-right edit-section-close">
+                    <i class="fa fa-close fa-2x"></i>
+                </a>
+                <h4 class="title">
+                    Edit slider image
+                </h4>
+                <p>
+                    Item ID: <code>{{ item.id }}</code>
+                </p>
+                <form action="/admin/slider/edit" method="post" enctype="multipart/form-data">
+                    <input type="text" name="id" value="{{ item.id }}" style="display: none">
+                    <p class="control">
+                        <label class="label">Image</label>
+                        <input type="file" name="image">
+                    </p>
+                    <p class="control">
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>
+            </div>
+            {% endfor %}
+            <div class="box">
+                <h4 class="title">
+                    Add slider image
+                </h4>
+                <form action="/admin/slider/new" method="post" enctype="multipart/form-data">
+                    <p class="control">
+                        <label class="label">Image</label>
+                        <input type="file" name="image">
+                    </p>
+                    <p class="control">
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>
+            </div>
         </div>
         <div id="portfolio-section" class="admin-section" style="display: none">
             <div class="box">
@@ -43,7 +126,6 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th></th>
                         <th></th>
                     </tr>
                     {% for item in portfolio_images %}
@@ -83,7 +165,7 @@
             </div>
             {% for item in portfolio_images %}
                 <div class="box portfolio-edit-section" id="portfolio-edit-{{ item.id }}" style="display: none">
-                    <a class="is-pulled-right portfolio-edit-section-close">
+                    <a class="is-pulled-right edit-section-close">
                         <i class="fa fa-close fa-2x"></i>
                     </a>
                     <h4 class="title">

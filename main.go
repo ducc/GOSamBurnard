@@ -100,6 +100,12 @@ func main() {
 	m.Get("/logout", pages.Logout)
 	m.Group("/admin", func() {
 		m.Get("/", pages.Admin)
+		m.Group("/slider", func() {
+			m.Post("/new", binding.MultipartForm(pages.AdminSliderNewForm{}), pages.AdminSliderNew)
+			m.Post("/edit", binding.MultipartForm(pages.AdminSliderEditForm{}), pages.AdminSliderEdit)
+			m.Get("/delete/:id", pages.AdminSliderDelete)
+			m.Get("/order/:id/:index/:action", pages.AdminSliderOrder)
+		})
 		m.Group("/portfolio", func() {
 			m.Post("/new", binding.MultipartForm(pages.AdminPortfolioNewForm{}), pages.AdminPortfolioNew)
 			m.Post("/edit", binding.MultipartForm(pages.AdminPortfolioEditForm{}), pages.AdminPortfolioEdit)

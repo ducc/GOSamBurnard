@@ -5,15 +5,11 @@
 
 <div class="my-slider" style="margin-left: 40px; margin-right: 40px;">
     <ul>
-        <li>
-            <img src="http://placehold.it/600x400" style="width: 100%" />
-        </li>
-        <li>
-            <img src="http://placehold.it/600x400" style="width: 100%" />
-        </li>
-        <li>
-            <img src="http://placehold.it/600x400" style="width: 100%" />
-        </li>
+        {% for item in slider_items %}
+            <li>
+                <img src="{{ item.image }}" style="width: 100%" />
+            </li>
+        {% endfor %}
     </ul>
 </div>
 <div class="box welcome title-text" style="margin: 50px 0 50px 0">
