@@ -3,7 +3,8 @@
 {% block content %}
 <br />
 
-<div class="my-slider" style="margin-left: 40px; margin-right: 40px;">
+<!-- style="margin-left: 40px; margin-right: 40px;" -->
+<div class="my-slider">
     <ul>
         {% for item in slider_items %}
             <li>
@@ -53,12 +54,11 @@
 <script src="/static/js/unslider-min.js"></script>
 <script>
     jQuery(document).ready(function($) {
-        $('.my-slider').unslider({
+        var slider = $('.my-slider');
+        slider.unslider({
             autoplay: true,
-            arrows: {
-                prev: '<a class="unslider-arrow prev"><i class="fa fa-arrow-left"></i></a>',
-                next: '<a class="unslider-arrow next"><i class="fa fa-arrow-right"></i></a>'
-            }
+            arrows: {},
+            delay: 5000
         });
     });
 </script>

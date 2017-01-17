@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    var $toggle = $('#nav-toggle');
+    var $menu = $('#nav-menu');
+    var $navHeading = $('#nav-heading');
+
+    $toggle.click(function() {
+        $(this).toggleClass('is-active');
+        $menu.toggleClass('is-active');
+        $navHeading.toggleClass('is-hidden');
+    });
+
     $(".modal-toggler").click(function() {
         var modalId = $(this).attr("data-toggle");
         $(modalId).addClass("is-active");
