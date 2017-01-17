@@ -86,6 +86,9 @@ func main() {
 		}
 	})
 	pages.Init()
+	m.Get("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/robots.txt")
+	})
 	m.Get("/", pages.Home)
 	m.Get("/portfolio", pages.Portfolio)
 	m.Group("/projects", func() {
