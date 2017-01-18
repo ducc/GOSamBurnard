@@ -1,18 +1,22 @@
 {% extends "base.tmpl" %}
 {% block title %}Illustration and Design{% endblock %}
-{% block content %}
 
+{% block no_container %}
 
-<!-- style="margin-left: 40px; margin-right: 40px;" -->
 <div class="my-slider">
     <ul>
         {% for item in slider_items %}
-            <li>
-                <img src="{{ item.image }}" style="width: 100%" />
-            </li>
+        <li>
+            <img src="{{ item.image }}" style="width: 100%" />
+        </li>
         {% endfor %}
     </ul>
 </div>
+
+{% endblock %}
+
+{% block content %}
+
 <div class="box welcome title-text" style="margin: 50px 0 50px 0">
     Welcome
 </div>
