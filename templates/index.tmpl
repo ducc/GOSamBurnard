@@ -6,9 +6,9 @@
 <div class="my-slider">
     <ul>
         {% for item in slider_items %}
-        <li>
-            <img src="{{ item.image }}" style="width: 100%" />
-        </li>
+            <li>
+                <img src="{{ item.image }}" style="width: 100%" />
+            </li>
         {% endfor %}
     </ul>
 </div>
@@ -17,9 +17,12 @@
 
 {% block content %}
 
-<div class="box welcome title-text" style="margin: 50px 0 50px 0">
-    Welcome
+<div style="text-align: center; padding: 100px;">
+    <h2 class="title title-text" style="font-size: 40px; color: #7a7a7a">
+        Welcome
+    </h2>
 </div>
+
 <div class="columns">
     <div class="column is-9">
         <div class="columns">

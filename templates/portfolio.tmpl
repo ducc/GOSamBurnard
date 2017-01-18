@@ -4,24 +4,26 @@
 <br />
 {% for item in images %}
     <div id="modal-{{ item.id }}" class="modal">
-        <div class="modal-background"></div>
+        <div class="modal-background">
+            <img src="{{ item.image }}" width="100%">
+        </div>
         <div class="modal-content">
-            <div style="padding: 10px;">
-                <img src="{{ item.image }}" width="100%">
+            <div style="padding: 10px; height: 50%;">
+                <!--<img src="{{ item.image }}" width="100%">-->
                 <div class="modal-image-caption">
                     <div class="columns">
-                        <div class="column is-1 is-2-mobile">
+                        <div class="column is-1-desktop is-2-mobile">
                             <a class="button previous is-fullwidth" style="height: 100%">
                                 <i class="fa fa-arrow-left"></i>
                             </a>
                         </div>
-                        <div class="column is-10 is-8-mobile">
+                        <div class="column is-10-desktop is-8-mobile">
                             <h3 class="title is-3" style="font-weight: bold">
                                 {{ item.title }}
                             </h3>
                             <p>{{ item.description|safe }}</p>
                         </div>
-                        <div class="column is-1 is-2-mobile">
+                        <div class="column is-1-desktop is-2-mobile">
                             <a class="button next is-pulled-right is-fullwidth" style="height: 100%">
                                 <i class="fa fa-arrow-right"></i>
                             </a>
