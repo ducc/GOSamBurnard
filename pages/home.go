@@ -70,7 +70,7 @@ func loadAndSortSliderItems(db *sql.DB, dot *dotsql.DotSql) (sliderItems, error)
 }
 
 func Home(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
-	addStandardData(ctx.Data, "home")
+	addStandardData(ctx.Data, db, dot, "home")
 	var err error
 	ctx.Data["slider_items"], err = loadAndSortSliderItems(db, dot)
 	if err != nil {

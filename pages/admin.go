@@ -8,7 +8,7 @@ import (
 )
 
 func Admin(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
-	addStandardData(ctx.Data)
+	addStandardData(ctx.Data, db, dot)
 	var err error
 	ctx.Data["slider_items"], err = loadAndSortSliderItems(db, dot)
 	ctx.Data["portfolio_images"], err = loadAndSortPortfolioItems(db, dot)

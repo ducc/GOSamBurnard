@@ -90,6 +90,15 @@
 </section>
 <br />
 <section class="container footer">
+    <div style="margin-bottom: 10px;">
+        {% for account in social_accounts %}
+            {% if account.link %}
+                <a href="{{ account.link }}" style="padding: 10px; text-decoration: none; text-underline: none;">
+                    <i class="fa fa-{{ account.id }} fa-2x"></i>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
     <p>Copyright &copy; {{ current_year }} Sam Burnard</p>
 </section>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

@@ -8,6 +8,8 @@ import (
 	"mime/multipart"
 	"os"
 	"time"
+	"github.com/gchaincl/dotsql"
+	"database/sql"
 )
 
 const image_file_path = "static/img/"
@@ -27,8 +29,13 @@ func Init() {
 	contact = string(body)
 }
 
-func addStandardData(model map[string]interface{}, activeTab ...string) {
+func addStandardData(model map[string]interface{}, db *sql.DB, dot *dotsql.DotSql, activeTab ...string) {
 	model["current_year"] = time.Now().Year()
+	var err error
+	model["social_accounts"], err = loadSocialAccounts(db, dot)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	if len(activeTab) != 0 {
 		model["active_tab"] = activeTab[0]
 	}

@@ -81,7 +81,7 @@ func loadAndSortPortfolioItems(db *sql.DB, dot *dotsql.DotSql) (portfolioItems, 
 }
 
 func Portfolio(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
-	addStandardData(ctx.Data, "portfolio")
+	addStandardData(ctx.Data, db, dot, "portfolio")
 	var err error
 	ctx.Data["images"], err = loadAndSortPortfolioItems(db, dot)
 	if err != nil {

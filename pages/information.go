@@ -19,15 +19,9 @@ type InformationForm struct {
 var about, contact string
 
 func Information(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
-	addStandardData(ctx.Data, "about")
+	addStandardData(ctx.Data,db, dot, "about")
 	ctx.Data["about_text"] = about
 	ctx.Data["contact_text"] = contact
-	var err error
-	ctx.Data["social_accounts"], err = loadSocialAccounts(db, dot)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
 	ctx.HTMLSet(200, "base", "about")
 }
 

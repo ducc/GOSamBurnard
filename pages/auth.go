@@ -5,6 +5,8 @@ import (
 	"github.com/go-macaron/session"
 	"gopkg.in/macaron.v1"
 	"log"
+	"github.com/gchaincl/dotsql"
+	"database/sql"
 )
 
 type (
@@ -20,8 +22,8 @@ type (
 	}
 )
 
-func Login(ctx *macaron.Context) {
-	addStandardData(ctx.Data)
+func Login(ctx *macaron.Context, db *sql.DB, dot *dotsql.DotSql) {
+	addStandardData(ctx.Data, db, dot)
 	ctx.HTMLSet(200, "base", "login")
 }
 
