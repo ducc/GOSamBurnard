@@ -1,8 +1,6 @@
 {% extends "base.tmpl" %}
 {% block title %}Illustration and Design{% endblock %}
-
 {% block no_container %}
-
 <div class="my-slider">
     <ul>
         {% for item in slider_items %}
@@ -12,33 +10,29 @@
         {% endfor %}
     </ul>
 </div>
-
 {% endblock %}
-
 {% block content %}
-
 <div style="text-align: center; padding: 100px;">
     <h2 class="title title-text" style="font-size: 40px; color: #7a7a7a">
         Welcome
     </h2>
 </div>
-
 <div class="columns">
     <div class="column is-9">
         <div class="columns">
             <div class="column is-6">
-                <img src="http://placehold.it/600x600" width="100%" alt="generic alt text">
+                <img src="/static/img/homepage_feature_1.jpg" width="100%">
             </div>
             <div class="column is-6">
-                <img src="http://placehold.it/600x600" width="100%" alt="generic alt text">
+                <img src="/static/img/homepage_feature_2.jpg" width="100%">
             </div>
         </div>
         <div class="columns">
             <div class="column is-6">
-                <img src="http://placehold.it/600x600" width="100%" alt="generic alt text">
+                <img src="/static/img/homepage_feature_3.jpg" width="100%">
             </div>
             <div class="column is-6">
-                <img src="http://placehold.it/600x600" width="100%" alt="generic alt text">
+                <img src="/static/img/homepage_feature_4.png" width="100%">
             </div>
         </div>
     </div>
